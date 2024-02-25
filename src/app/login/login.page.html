@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/registro">Regístrate</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="header">
+    <h1>Iniciar sesión</h1>
+    <img src="assets/img/logo.jpg">
+  </div>
+  <form class="form" (ngSubmit)="login()">
+    <ion-item class="custom-input">
+      <ion-label position="floating" id="correo">Correo:</ion-label>
+      <ion-input [(ngModel)]="email" name="email" aria-required="true"></ion-input>
+    </ion-item>
+    <ion-item class="custom-input">
+      <ion-label position="floating" id="password">Contraseña:</ion-label>
+      <ion-input type="password" [(ngModel)]="password" name="password" aria-required="true"></ion-input>
+    </ion-item>
+    <ion-button shape="round" type="submit" expand="full" class="custom-button">Iniciar sesión</ion-button>
+  </form>
+</ion-content>
