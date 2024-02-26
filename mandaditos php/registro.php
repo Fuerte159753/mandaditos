@@ -14,12 +14,12 @@ $ruta = $data->rutaSeleccionada;
 $direccion = $data->direccion;
 $telefono = $data->telefono;
 $correo = $data->correo;
-$password = $data->password;
+$password = password_hash($data->password, PASSWORD_DEFAULT);
 
-$query_check_email = "SELECT COUNT(*) AS count FROM clientes WHERE correo = '$correo'";
-$result_check_email = $conn->query($query_check_email);
-$row_check_email = $result_check_email->fetch_assoc();
-if ($row_check_email['count'] > 0) {
+$sql_check_email = "SELECT * FROM clientes WHERE correo = '$correo'";
+$result_check_email = $conn->query($sql_check_email);
+
+if ($result_check_email->num_rows > 0) {
     echo json_encode(array("message" => "El correo electrónico ya está registrado"));
     exit();
 }
@@ -35,9 +35,9 @@ $next_id = $last_id + 1;
 
 $sql = "INSERT INTO clientes (cliente_id, nombre, apellido, localidad, telefono, correo, password, verificado, codigo_verificacion) VALUES ('$next_id', '$nombre','$apellido','$ruta','$telefono','$correo', '$password', '$verificado', '$codigo_verificacion')";
 
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql) == TRUE) {
     $sql_direccion = "INSERT INTO direcciones (cliente_id, direccion) VALUES ('$next_id', '$direccion')";
-    if ($conn->query($sql_direccion) === TRUE) {
+    if ($conn->query($sql_direccion) == TRUE) {
         echo json_encode(array("message" => "success"));
     } else {
         echo json_encode(array("message" => "Error al registrar dirección: " . $conn->error));
@@ -46,7 +46,6 @@ if ($conn->query($sql) === TRUE) {
     echo json_encode(array("message" => "Error al registrar usuario: " . $conn->error));
 }
 $conn->close();
-
 function generateRandomNumber($min, $max) {
     return mt_rand($min, $max);
 }

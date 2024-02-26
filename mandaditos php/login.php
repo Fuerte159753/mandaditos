@@ -21,24 +21,23 @@ if(isset($request->email) && isset($request->password)) {
 
   if ($result_clientes->num_rows > 0) {
     $cliente = $result_clientes->fetch_assoc();
-    if ($pass == $cliente['password']) {
+    if (password_verify($pass, $cliente['password'])) {
       echo json_encode(["success" => true, "tipo" => 0, "id" => $cliente['cliente_id'],"code"=>$cliente['verificado'], "message" => "Inicio de sesión exitoso para el cliente"]);
     } else {
-      echo json_encode(["ERROR" => true, "message" => "Contraseña incorrecta para el cliente"]);
+      echo json_encode(["ERROR" => true, "message" => "Verifica tu información"]);
     }
   } elseif ($result_repartidores->num_rows > 0) {
     $repartidor = $result_repartidores->fetch_assoc();
-    if ($pass == $repartidor['password']) {
+    if (password_verify($pass, $repartidor['password'])) {
       echo json_encode(["success" => true, "tipo" => 1, "message" => "Inicio de sesión exitoso"]);
     } else {
-      echo json_encode(["ERROR" => true, "message" => "Contraseña incorrecta para el correo electrónico proporcionado"]);
+      echo json_encode(["ERROR" => true, "message" => "Verifica tu información"]);
     }
   } else {
-    echo json_encode(["ERROR" => true, "message" => "Correo electrónico no encontrado en nuestros registros"]);
+    echo json_encode(["ERROR" => true, "message" => "Usuario no encontrado"]);
   }
-
-  $conn->close();
 } else {
-  echo json_encode(["ERROR" => true, "message" => "Correo electrónico o contraseña no proporcionados"]);
+  echo json_encode(["ERROR" => true, "message" => "Datos no proporcionados"]);
 }
+$conn->close();
 ?>
