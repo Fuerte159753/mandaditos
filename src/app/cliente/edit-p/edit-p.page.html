@@ -1,0 +1,77 @@
+<ion-header [translucent]="true" class="custom-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edita Tu Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>Edita Tu Perfil</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <form [formGroup]="editForm" (ngSubmit)="update()">
+          <ion-item class="custom-item">
+            <ion-label position="floating">Nombre(s):</ion-label>
+            <ion-input formControlName="nombre" type="text"></ion-input>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-label position="floating">Apellido(s):</ion-label>
+            <ion-input formControlName="apellido" type="text"></ion-input>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-label position="floating">Teléfono:</ion-label>
+            <ion-input formControlName="telefono" type="number"></ion-input>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-label position="floating">Localidad:</ion-label>
+            <ion-select formControlName="ruta" interface="popover">
+              <ion-select-option *ngFor="let ruta of rutas" [value]="ruta">{{ ruta }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <br>
+          <ion-button expand="full" shape="round" color="success" class="custom-button" type="submit">Actualizar</ion-button>
+        </form>
+      </div>
+    </ion-accordion>
+    <!-- agregar nueva direccion -->
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-label>Agrega Otra Dirección</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-header><h6>Nueva Dirección</h6></ion-header>
+        <form (ngSubmit)="new()">
+          <ion-item class="custom-item">
+            <ion-label position="floating">Dirección</ion-label>
+            <ion-input [(ngModel)]="nd" name="nuevaDireccion" aria-label="Success input" color="success" type="text" class="custom-input"></ion-input>
+          </ion-item>
+          <ion-button type="submit" expand="full"  shape="round" color="success" class="custom-button">Guardar</ion-button>
+        </form>
+      </div>
+    </ion-accordion>
+    <!-- eliminar direccion -->
+    <ion-accordion value="elimina">
+      <ion-item slot="header" color="light">
+        <ion-label>Elimina Una Dirección</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ng-container *ngFor="let direccion of direcciones">
+          <ion-label>
+            <p>{{ direccion.direccion }}</p>
+          </ion-label>
+          <ion-button (click)="dele(direccion.id_dire)">Eliminar</ion-button>
+        </ng-container>
+        <div *ngIf="direcciones.length === 0">
+          <p>No hay direcciones disponibles para este cliente.</p>
+        </div>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

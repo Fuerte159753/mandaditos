@@ -42,14 +42,18 @@ export class ClientePage implements OnInit {
       }
     }
     this.router.navigate(['cliente/perfil'], navigationExtras);
-    console.log("se dio click");
   }
 
   edit() {
-    // Agrega aquí la lógica para editar el perfil
+    let navigationExtras: NavigationExtras = {
+      state:{
+        c: this.id
+      }
+    }
+    this.router.navigate(['cliente/edit-p'], navigationExtras);
   }
 
   logout() {
-    // Agrega aquí la lógica para cerrar sesión
+    this.router.navigate(['/login'])
   }
 }

@@ -1,39 +1,34 @@
-<div class="ion-page" id="main-content">
+<div class="ion-page">
   <ion-header [translucent]="true" class="custom-header">
     <ion-toolbar>
       <ion-buttons slot="end">
       </ion-buttons>
-      <ion-title class="ion-title">{{mensaje}} id {{id}}</ion-title>
+      <ion-title class="ion-title">{{mensaje}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-breadcrumbs></ion-breadcrumbs>
-
-  <ion-img src="assets/img/rep.jpg" class="header-image" style="width: 110%; height: 50%;"></ion-img>
-
-
 <ion-content class="ion-padding">
+  <h5>pedidos xhate</h5>
   <ion-tab-button>
     <ion-button expand="block" shape="round" class="custom-button" >Realizar pedido</ion-button>
     <ion-button expand="block" shape="round" class="custom-button">Ver estatus pedidos</ion-button>
   </ion-tab-button>
 
-  <ion-tabs>
+  <ion-tabs class="tabs1">
     <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="cliente" class="home">
+        <ion-icon name="home-outline"></ion-icon>Inicio
+      </ion-tab-button>
       <ion-tab-button tab="cliente" (click)="us()">
-        <ion-icon name="person" (click)="us()"></ion-icon>Perfil
+        <ion-icon name="person-outline"></ion-icon>Perfil
       </ion-tab-button>
       <ion-tab-button tab="radio" (click)="edit()">
-        <ion-icon name="pencil-sharp" (click)="edit()"></ion-icon>Editar Perfil
+        <ion-icon name="bag-handle-outline"></ion-icon>Editar Perfil
       </ion-tab-button>
       <ion-tab-button tab="library" (click)="logout()">
-        <ion-icon name="log-out" (click)="logout()"></ion-icon>Salir de la Sesión
+        <ion-icon name="log-in-outline"></ion-icon>Salir de la Sesión
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
   </ion-content>
-  <ion-footer>
-    <ion-toolbar>
-      <!--aqui va algo-->
-    </ion-toolbar>
-  </ion-footer>
 </div>

@@ -21,7 +21,7 @@ export class PerfilPage implements OnInit {
       } else {
         const navigation = this.router.getCurrentNavigation();
         if (navigation && navigation.extras && navigation.extras.state) {
-          this.Id = navigation.extras.state['id'];
+          this.Id = navigation.extras.state['c'];
         }
       }
     });
@@ -34,6 +34,7 @@ export class PerfilPage implements OnInit {
     } else {
       this.mensaje = 'Buenas Noches';
     }
+    this.oc()
   }
   Back() {
     this.router.navigate(['/cliente'], { queryParams: {i: this.Id}});
