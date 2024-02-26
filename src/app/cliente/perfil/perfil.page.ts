@@ -45,4 +45,22 @@ export class PerfilPage implements OnInit {
       response => {this.cl = response;},
       error => {console.error('Error al obtener el perfil del cliente:', error);});
   }
+  edit() {
+    let navigationExtras: NavigationExtras = {
+      state:{
+        c: this.Id
+      }
+    }
+    this.router.navigate(['cliente/edit-p'], navigationExtras);
+    console.log("se dio click");
+  }
+  ped() {
+    let navigationExtras: NavigationExtras = {
+      state:{
+        c: this.Id
+      }
+    }
+    this.router.navigate(['cliente/his-pedi'], navigationExtras);
+    console.log("se dio click");
+  }
 }

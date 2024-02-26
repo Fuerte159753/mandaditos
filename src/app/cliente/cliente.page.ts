@@ -42,6 +42,16 @@ export class ClientePage implements OnInit {
       }
     }
     this.router.navigate(['cliente/perfil'], navigationExtras);
+    console.log("se dio click");
+  }
+  ped() {
+    let navigationExtras: NavigationExtras = {
+      state:{
+        c: this.id
+      }
+    }
+    this.router.navigate(['cliente/his-pedi'], navigationExtras);
+    console.log("se dio click");
   }
 
   edit() {
@@ -51,9 +61,11 @@ export class ClientePage implements OnInit {
       }
     }
     this.router.navigate(['cliente/edit-p'], navigationExtras);
+    console.log("se dio click");
   }
 
   logout() {
     this.router.navigate(['/login'])
+    console.log("se dio click");
   }
 }
