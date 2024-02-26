@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 
 @Component({
@@ -10,6 +8,7 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
+  mensaje: string='';
   Id: string = '';
   cl: any = {};
 
@@ -17,9 +16,24 @@ export class PerfilPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.Id = params['C'];
-      this.oc();
+      if (params && params['c']) {
+        this.Id = params['c'];
+      } else {
+        const navigation = this.router.getCurrentNavigation();
+        if (navigation && navigation.extras && navigation.extras.state) {
+          this.Id = navigation.extras.state['id'];
+        }
+      }
     });
+
+    const hora = new Date().getHours();
+    if (hora >= 0 && hora < 12) {
+      this.mensaje = 'Buenos Días';
+    } else if (hora >= 12 && hora < 18) {
+      this.mensaje = 'Buenas Tardes';
+    } else {
+      this.mensaje = 'Buenas Noches';
+    }
   }
   Back() {
     this.router.navigate(['/cliente'], { queryParams: {i: this.Id}});

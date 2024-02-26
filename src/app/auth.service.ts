@@ -15,4 +15,7 @@ export class AuthService {
   per(Id:number){
     return this.http.post<any>(this.url + 'perfil.php', { Id });
   }
+  reg(registroData: any){
+    return this.http.post<any>(this.url + 'registro.php', registroData);
+  }
 }

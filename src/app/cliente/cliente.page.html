@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-buttons slot="end">
       </ion-buttons>
-      <ion-title class="ion-title">{{mensaje}}</ion-title>
+      <ion-title class="ion-title">{{mensaje}} id {{id}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-breadcrumbs></ion-breadcrumbs>
@@ -19,7 +19,7 @@
 
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home">
+      <ion-tab-button tab="cliente" (click)="us()">
         <ion-icon name="person" (click)="us()"></ion-icon>Perfil
       </ion-tab-button>
       <ion-tab-button tab="radio" (click)="edit()">
@@ -33,7 +33,7 @@
   </ion-content>
   <ion-footer>
     <ion-toolbar>
-
+      <!--aqui va algo-->
     </ion-toolbar>
   </ion-footer>
 </div>
