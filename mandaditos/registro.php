@@ -8,13 +8,14 @@ include 'conexion.php';
 
 $data = json_decode(file_get_contents("php://input"));
 
-$nombre = $data->nombre;
-$apellido = $data->apellido;
-$ruta = $data->rutaSeleccionada;
-$direccion = $data->direccion;
-$telefono = $data->telefono;
-$correo = $data->correo;
-$password = password_hash($data->password, PASSWORD_DEFAULT);
+// Accede a las propiedades dentro de registroData
+$nombre = $data->registroData->nombre;
+$apellido = $data->registroData->apellido;
+$ruta = $data->registroData->rutaSeleccionada;
+$direccion = $data->registroData->direccion;
+$telefono = $data->registroData->telefono;
+$correo = $data->registroData->correo;
+$password = password_hash($data->registroData->password, PASSWORD_DEFAULT);
 
 $sql_check_email = "SELECT * FROM clientes WHERE correo = '$correo'";
 $result_check_email = $conn->query($sql_check_email);
@@ -39,6 +40,8 @@ if ($conn->query($sql) == TRUE) {
     $sql_direccion = "INSERT INTO direcciones (cliente_id, direccion) VALUES ('$next_id', '$direccion')";
     if ($conn->query($sql_direccion) == TRUE) {
         echo json_encode(array("message" => "success"));
+        require_once('mail/enviarmail.php');
+        enviarCorreo($nombre, $correo, $codigo_verificacion);
     } else {
         echo json_encode(array("message" => "Error al registrar dirección: " . $conn->error));
     }
@@ -46,6 +49,7 @@ if ($conn->query($sql) == TRUE) {
     echo json_encode(array("message" => "Error al registrar usuario: " . $conn->error));
 }
 $conn->close();
+
 function generateRandomNumber($min, $max) {
     return mt_rand($min, $max);
 }
