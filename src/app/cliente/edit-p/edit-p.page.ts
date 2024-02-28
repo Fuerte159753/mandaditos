@@ -158,6 +158,12 @@ export class EditPPage implements OnInit {
     );
   }
   goBack(){
+    let navigationExtras: NavigationExtras = {
+      state:{
+        c: this.Id
+      }
+    }
+    this.router.navigate(['perfil'], navigationExtras);
   }
 
 }

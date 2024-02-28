@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { Network } from '@ionic-native/network/ngx';
@@ -14,7 +14,10 @@ export class LoginPage {
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router, private network: Network, private platform: Platform, private alertController: AlertController) { }
-
+  OnInit(){
+    this.email = '';
+  this.password = '';
+  }
   login() {
     if (this.platform.is('cordova')) {
       if (this.network.type === 'none') {

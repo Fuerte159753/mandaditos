@@ -30,4 +30,7 @@ export class AuthService {
   elimidire(idre:number){
     return this.http.post(this.url+'elimi_dire.php',{idre})
   }
+  verifi(id:number, codigo:number){
+    return this.http.post<any>(this.url+'verificar.php',{id, codigo})
+  }
 }

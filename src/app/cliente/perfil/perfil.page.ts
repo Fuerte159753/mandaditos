@@ -61,6 +61,5 @@ export class PerfilPage implements OnInit {
       }
     }
     this.router.navigate(['cliente/his-pedi'], navigationExtras);
-    console.log("se dio click");
   }
 }

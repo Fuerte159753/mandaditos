@@ -8,7 +8,6 @@ include 'conexion.php';
 
 $data = json_decode(file_get_contents("php://input"));
 
-// Accede a las propiedades dentro de registroData
 $nombre = $data->registroData->nombre;
 $apellido = $data->registroData->apellido;
 $ruta = $data->registroData->rutaSeleccionada;
@@ -39,9 +38,17 @@ $sql = "INSERT INTO clientes (cliente_id, nombre, apellido, localidad, telefono,
 if ($conn->query($sql) == TRUE) {
     $sql_direccion = "INSERT INTO direcciones (cliente_id, direccion) VALUES ('$next_id', '$direccion')";
     if ($conn->query($sql_direccion) == TRUE) {
-        echo json_encode(array("message" => "success"));
         require_once('mail/enviarmail.php');
-        enviarCorreo($nombre, $correo, $codigo_verificacion);
+        $envio_correo = enviarCorreo($nombre, $correo, $codigo_verificacion);
+
+        if ($envio_correo === "success") {
+            echo json_encode(array("message" => "success"));
+        } else {
+            $eliminar_cliente = "DELETE FROM clientes WHERE correo = '$correo'";
+            $conn->query($eliminar_cliente);
+
+            echo json_encode(array("message" => "Error al enviar el correo"));
+        }
     } else {
         echo json_encode(array("message" => "Error al registrar dirección: " . $conn->error));
     }

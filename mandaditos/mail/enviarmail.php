@@ -6,10 +6,10 @@ use PHPMailer\PHPMailer\Exception;
 require 'phpmailer/Exception.php';
 require 'phpmailer/PHPMailer.php';
 require 'phpmailer/SMTP.php';
+
 function enviarCorreo($nombre, $correo, $codigo_verificacion) {
     $mail = new PHPMailer(true);
     try {
-        //Server settings
         $mail->SMTPDebug = 0;
         $mail->isSMTP();
         $mail->Host       = 'smtp.hostinger.com';
@@ -18,13 +18,14 @@ function enviarCorreo($nombre, $correo, $codigo_verificacion) {
         $mail->Password   = 'Aezakmi1?';
         $mail->SMTPSecure = 'ssl';
         $mail->Port       = 465;
-        //datos a quien se le va a enviar el correo
+
         $mail->setFrom('pedidos@proyectoinutvm.com', 'Mandaditos Xhate');
         $mail->addAddress($correo, $nombre);
-        //Contenido del correo
+
         $mail->isHTML(true);
         $mail->Subject = 'Codigo de verificacion';
-        $cuerpo_mail ='
+
+        $cuerpo_mail = '
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
@@ -75,9 +76,9 @@ function enviarCorreo($nombre, $correo, $codigo_verificacion) {
         </div>';
         $mail->Body    = $cuerpo_mail;
         $mail->send();
-        //echo 'Correo enviado correctamente';
+        return "success";
     } catch (Exception $e) {
-        echo "Error al enviar: {$mail->ErrorInfo}";
+        return "error";
     }
 }
 ?>

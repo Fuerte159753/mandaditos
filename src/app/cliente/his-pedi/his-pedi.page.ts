@@ -11,12 +11,22 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 })
 export class HisPediPage implements OnInit {
 
-  clienteId: string = '';
   pedidos: any[] = [];
+  Id: string = '';
 
   constructor(private route: ActivatedRoute, private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params && params['c']) {
+        this.Id = params['c'];
+      } else {
+        const navigation = this.router.getCurrentNavigation();
+        if (navigation && navigation.extras && navigation.extras.state) {
+          this.Id = navigation.extras.state['c'];
+        }
+      }
+    });
     /*
     this.route.queryParams.subscribe(params => {
       this.clienteId = params['idCliente'];
@@ -38,11 +48,12 @@ export class HisPediPage implements OnInit {
     );*/
   }
   navigateBackToClientePage() {
-    this.router.navigate(['/cliente'], {
-      queryParams: {
-        idCliente: this.clienteId // Aquí proporciona el valor de clienteId
+    let navigationExtras: NavigationExtras = {
+      state:{
+        c: this.Id
       }
-    });
+    }
+    this.router.navigate(['cliente'], navigationExtras);
   }
   getColorByEstado(estado: string): string {
     switch (estado) {

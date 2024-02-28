@@ -8,7 +8,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 })
 export class ClientePage implements OnInit {
   mensaje: string = '';
-  id: string = '';
+  id: number = 0;
   nombreCliente: string = '';
 
   constructor(private route: ActivatedRoute, private router: Router) {}
